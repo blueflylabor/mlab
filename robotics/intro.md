@@ -68,3 +68,46 @@ $$
 [p]^M = A^{-1}[p]^F = A^T[p]^F
 \end{aligned}
 $$
+
+#### Example 2
+Suppose mobile frame $M$ is rotated by $90^\circ$ counter-clockwise around $f^3$ relative to fixed frame $F$. Then in frame $F$:
+
+$$
+\begin{aligned}
+&m^1 \space points \space along +f^2 \implies [m^1]^F = \begin{bmatrix} 0 & 1 & 0 \end{bmatrix}^T\\
+
+&m^2 \space points \space along -f^1 \implies [m^2]^F = \begin{bmatrix} -1 & 0 & 0 \end{bmatrix}^T\\
+
+&m^3 \space coincides \space with +f^3 \implies [m^3]^F = \begin{bmatrix} 0 & 0 & 1 \end{bmatrix}^T
+\end{aligned}
+$$
+Assembing these three columns gives the transformation matrix $A$:
+$$
+\begin{aligned}
+A = \begin{bmatrix} 0, -1, 0\\ 1, 0, 0\\ 0, 0, 1\end{bmatrix}
+\end{aligned}
+$$
+If a point has coodinates $[p]^M = \begin{bmatrix}0.5\\0.6\\1.4\end{bmatrix}$ in frame $M$, its coordinates in frame F are:
+$$
+\begin{aligned}
+[p]^F = A[p]^M = \begin{bmatrix} 0, -1, 0\\ 1, 0, 0\\ 0, 0, 1\end{bmatrix}\begin{bmatrix}0.5\\0.6\\1.4\end{bmatrix} = \begin{bmatrix}-0.6\\0.5\\1.4\end{bmatrix}
+\end{aligned}
+$$
+Conversely, given$[p]^F$, we recover $[p]^M = A^T[p]^F= {\begin{bmatrix} 0, -1, 0\\ 1, 0, 0\\ 0, 0, 1\end{bmatrix}}^T\begin{bmatrix}-0.6\\0.5\\1.4\end{bmatrix} = \begin{bmatrix}0.5\\0.6\\1.4\end{bmatrix}$
+
+## Fundamental Rotations
+Assume frames $F$ and $M$ initially coincide, and we rotate $M$ about axis $f^1$ by angle $\phi$(counter-clockwise according to the right-hand rule)
+<img src="./pics/slide10.png" width = "50%">
+
+Using $R_1(\phi)_{kj} = f^k \cdot m^j$:
+Since $m^1 = f^1$, we have $f^1 \cdot m^1 =1$, and $m^1 \perp f^2, f^3 \implies f^2 \cdot m^1 = f^3 \cdot m^1 = 0$
+
+And $f^2 \cdot m^2 = \cos\phi$
+$$
+\begin{aligned}
+f^2 \cdot m^2 =& \cos\phi\\
+f^3 \cdot m^2 =& \cos(\frac{\pi}{2}-\phi)=\sin\phi\\
+f^2 \cdot m^3 =& \cos(\frac{\pi}{2}+\phi)=-\sin\phi\\
+f^3 \cdot m^3 =& \
+\end{aligned}
+$$
