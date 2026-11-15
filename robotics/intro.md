@@ -1,3 +1,4 @@
+#  Mathematical Background
 ## Projection
 ### Dot product
 Dot Product:
@@ -31,5 +32,39 @@ Let $X = \begin{pmatrix}x^1, x^2, \ldots x^n \end{pmatrix}$ be a complete orthon
 $$
 \begin{aligned}
 p = \sum_{k=1}^{n}{[p]^X_k x^k}
+\end{aligned}
+$$
+### Orthonormal Coordinates Propostion
+the $k$-th coordinate of $p$ with respect to frame $X$ is obtained by othogonal projection(dot product) onto $x^k$:
+$$
+\begin{aligned}
+[p]_k^X = p \cdot x^k, \quad 1 \le k \le n
+\end{aligned}
+$$
+In $\mathbb{R}^3$, for a fixed base frame $F = \begin{Bmatrix} f^1, f^2, f^3\end{Bmatrix}$ and a mobile link frame $M = \begin{Bmatrix} m^1, m^2, m^3\end{Bmatrix}$ sharing the same origin:
+$$
+\begin{aligned}
+[p]^F = \begin{bmatrix} p \cdot f^1\\ p \cdot f^2\\ p \cdot f^3 \end{bmatrix}, [p]^M = \begin{bmatrix} p \cdot m^1\\ p \cdot m^2\\ p \cdot m^3 \end{bmatrix}
+\end{aligned}
+$$
+
+### Coordinate Transformation Matrix & Its Inverse
+Let $F$ = $\begin{Bmatrix} f^1, \ldots, f^n \end{Bmatrix}$ and $M$ = $\begin{Bmatrix} m^1, \ldots m^n\end{Bmatrix}$ be two orthonoramal frames with the same origin. Define the $n \times n$ matrix $A$ with entries :
+$$
+\begin{aligned}
+A_{kj} = f^k \cdot m^j, A_{kj} = f^k \cdot m^j, \quad 1 \le k, j \le n\
+\end{aligned}
+$$
+Then $A$ maps coordinates from frame $M$ into frames $F$:
+$$
+\begin{aligned}
+[p]^F = A[p]^M
+\end{aligned}
+$$
+Notice that the $j$-th column of A is simply $[m^j]^F = [f^1 \cdot m^j, f^2 \cdot m^j, f^3 \cdot m^j]$, i.e., the unit axis $m^j$ expressed in frame $F$\. 
+Inverse Coordinate Transformation: Since A is an orthogonal matrix ($A^TA = I$), mapping coordinates from F back into M is given by the transpose:
+$$
+\begin{aligned}
+[p]^M = A^{-1}[p]^F = A^T[p]^F
 \end{aligned}
 $$
