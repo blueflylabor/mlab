@@ -81,19 +81,15 @@ $$
 &m^3 \space coincides \space with +f^3 \implies [m^3]^F = \begin{bmatrix} 0 & 0 & 1 \end{bmatrix}^T
 \end{aligned}
 $$
-Assembing these three columns gives the transformation matrix $A$:
+Assembling these three columns gives the transformation matrix $A$:
 $$
-\begin{aligned}
-A = \begin{bmatrix} 0, -1, 0\\ 1, 0, 0\\ 0, 0, 1\end{bmatrix}
-\end{aligned}
+A = \begin{bmatrix} 0 & -1 & 0 \\ 1 & 0 & 0 \\ 0 & 0 & 1 \end{bmatrix}
 $$
-If a point has coodinates $[p]^M = \begin{bmatrix}0.5\\0.6\\1.4\end{bmatrix}$ in frame $M$, its coordinates in frame F are:
+If a point has coordinates $[p]^M = \begin{bmatrix} 0.5 \\ 0.6 \\ 1.4 \end{bmatrix}$ in frame $M$, its coordinates in frame $F$ are:
 $$
-\begin{aligned}
-[p]^F = A[p]^M = \begin{bmatrix} 0, -1, 0\\ 1, 0, 0\\ 0, 0, 1\end{bmatrix}\begin{bmatrix}0.5\\0.6\\1.4\end{bmatrix} = \begin{bmatrix}-0.6\\0.5\\1.4\end{bmatrix}
-\end{aligned}
+[p]^F = A[p]^M = \begin{bmatrix} 0 & -1 & 0 \\ 1 & 0 & 0 \\ 0 & 0 & 1 \end{bmatrix}\begin{bmatrix} 0.5 \\ 0.6 \\ 1.4 \end{bmatrix} = \begin{bmatrix} -0.6 \\ 0.5 \\ 1.4 \end{bmatrix}
 $$
-Conversely, given$[p]^F$, we recover $[p]^M = A^T[p]^F= {\begin{bmatrix} 0, -1, 0\\ 1, 0, 0\\ 0, 0, 1\end{bmatrix}}^T\begin{bmatrix}-0.6\\0.5\\1.4\end{bmatrix} = \begin{bmatrix}0.5\\0.6\\1.4\end{bmatrix}$
+Conversely, given $[p]^F$, we recover $[p]^M = A^T[p]^F = \begin{bmatrix} 0 & -1 & 0 \\ 1 & 0 & 0 \\ 0 & 0 & 1 \end{bmatrix}^T\begin{bmatrix} -0.6 \\ 0.5 \\ 1.4 \end{bmatrix} = \begin{bmatrix} 0.5 \\ 0.6 \\ 1.4 \end{bmatrix}$
 
 ## Fundamental Rotations
 Assume frames $F$ and $M$ initially coincide, and we rotate $M$ about axis $f^1$ by angle $\phi$(counter-clockwise according to the right-hand rule)
@@ -108,6 +104,214 @@ $$
 f^2 \cdot m^2 =& \cos\phi\\
 f^3 \cdot m^2 =& \cos(\frac{\pi}{2}-\phi)=\sin\phi\\
 f^2 \cdot m^3 =& \cos(\frac{\pi}{2}+\phi)=-\sin\phi\\
-f^3 \cdot m^3 =& \
+f^3 \cdot m^3 =& \cos\phi
 \end{aligned}
 $$
+Thus the first fundamental rotation matrix is:
+$$
+\begin{aligned}
+R_1(\phi) = \begin{bmatrix}
+1 & 0 & 0 \\
+0 & \cos\phi & -\sin\phi \\
+0 & \sin\phi & \cos\phi
+\end{bmatrix}
+\end{aligned}
+$$
+
+### All Three Fundamental Rotation Matrices
+Rotation about 1st axis ($x / f^1$) by $\phi$:
+
+$$R_1(\phi) = \begin{bmatrix} 1 & 0 & 0 \\ 0 & \cos\phi & -\sin\phi \\ 0 & \sin\phi & \cos\phi \end{bmatrix}$$
+Rotation about 2nd axis ($y / f^2$) by $\phi$:
+
+$$R_2(\phi) = \begin{bmatrix} \cos\phi & 0 & \sin\phi \\ 0 & 1 & 0 \\ -\sin\phi & 0 & \cos\phi \end{bmatrix}$$
+Rotation about 3rd axis ($z / f^3$) by $\phi$:
+
+$$R_3(\phi) = \begin{bmatrix} \cos\phi & -\sin\phi & 0 \\ \sin\phi & \cos\phi & 0 \\ 0 & 0 & 1 \end{bmatrix}$$
+Key Property: Applying $R_k(\phi)$ to initially coinciding frames $F$ and $M$ yields the coordinate transformation matrix that maps $M$-coordinates into $F$-coordinates: $[p]^F = R_k(\phi)[p]^M$. Furthermore, $\det(R_k(\phi)) = \cos^2\phi + \sin^2\phi = 1$.
+
+#### Example 3
+Frame $M$ is rotated about $f^1$ by angle $\phi = \frac{\pi}{3}$ ($60^\circ$).
+
+Given $[p]^M = \begin{bmatrix} 2 & 0 & 3 \end{bmatrix}^T$, compute $[p]^F$.
+
+Given $[q]^F = \begin{bmatrix} 3 & 4 & 0 \end{bmatrix}^T$, compute $[q]^M$.
+<img src="./pics/slide12.png" width=50%>
+
+1) evaluate $\cos(\frac{\pi}{3}) = 0.5$ and $\sin(\frac{\pi}{3}) = \frac{\sqrt{3}}{2}\approx 0.866)$, so:
+$$
+\begin{aligned}
+R_1(\frac{\pi}{3}) = \begin{bmatrix} 1 & 0 & 0\\ 0 & 0.5 & -0.866\\ 0 & 0.866 & 0.5\end{bmatrix}
+\end{aligned}
+$$
+2) Compute $[p]^F$(from $M$ to $F$):
+
+as $[p]^F = R_k(\phi)[p]^M$:
+$$
+\begin{aligned}
+[p]^F &= R_1(\frac{\phi}{3})[p]^M\\
+&= \begin{bmatrix}
+    1 & 0 & 0\\
+    0 & 0.5 & -0.866\\
+    0 & 0.866 & 0.5
+\end{bmatrix}
+\begin{bmatrix}
+    2 \\ 0 \\ 3
+\end{bmatrix}\\
+&= \begin{bmatrix}
+    1(2) + 0 + 0\\
+    0 + 0.5(0) - 0.866(3)\\
+    0 + 0.866(0) +0.5(3)\\
+\end{bmatrix}\\
+&=\begin{bmatrix}
+    2\\ -2.598\\ 1.5
+\end{bmatrix}
+\end{aligned}
+$$
+3) Compute $[q]^M = R_1(\frac{\pi}{3})[q]^F$, we multiply by $R_1(\frac{\pi}{3})^{-1}=R_1(\frac{\pi}{3})^T$:
+$$
+\begin{aligned}
+    [q]^M &= R_1(\frac{\pi}{3})[q]^F\\
+    &= \begin{bmatrix}
+        1 & 0 & 0\\
+        0 & 0.5 &0.866\\
+        0 & -0.866 & 0.5
+    \end{bmatrix}
+    \begin{bmatrix}
+        3 \\ 4 \\ 0
+    \end{bmatrix}\\
+    &= \begin{bmatrix}
+        1(3)+0+0\\ 0+0.5(4)+0.866(0)\\ 0-0.866(4)+0.5(0)
+    \end{bmatrix}\\
+    &= \begin{bmatrix}
+        3 \\ 2.0 \\ -3.464
+    \end{bmatrix}
+\end{aligned}
+$$
+
+# Direct Kinematics(Arm Matrix)
+## Composite Rotations
+Arbitrary 3D orientations can be constructed from a sequence of three fundamental rotations, but *matrix multiplication is NOT commutative:
+$R_a R_b \neq R_b R_a$*
+
+#### Algorithm for Composite Rotations:
+Initialize rotation matrix R = I(frames F and M are initially coincident)
+*Fixed-Frame Rotation(Extrinsic)*:If mobile frame M is rotated by angle \phi about the $k$-th the unit vector, postmultiply $R_k(\phi)$ to $R$:
+$$
+\begin{aligned}
+    R\leftarrow R_k(\phi)R
+\end{aligned}
+$$
+*Mobile-Frame Rotation(Intrinsic)*:If mobile frame $M$ is rotated by angle \phi about its own $k$-th unit vector, postmultiply $R_k(\phi) to R$:
+$$
+\begin{aligned}
+    R\leftarrow RR_k(\phi)
+\end{aligned}
+$$
+Repeat until all rotations are performed. The final matrix $R$ maps coordinates from $M$ into $F$($[p]^F = R[p]^M$)
+
+### Yaw-Pitch-Roll & Euler Angles
+#### Yaw-Pitch-Roll(YPR) Transformation
+${YPR}(\theta)$ represents a composite rotation of mobile frame $M$ performed sequentially about the axes of $F$:
+
+<img src="./pics/slide14.png" width=50%>
+
+Rotation about $f^1$ by yaw angle $\theta_1$ $\implies$ premultiply $R_1(\theta_1)$.
+
+Rotation about $f^2$ by pitch angle $\theta_2$ $\implies$ premultiply $R_2(\theta_2)$.
+
+Rotation about $f^3$ by roll angle $\theta_3$ $\implies$ premultiply $R_3(\theta_3)$.
+
+Because all three rotations occur about fixed axes of $F$, we premultiply at each step:
+
+$$
+\begin{aligned}
+    YPR(\theta) &= R_3(\theta_3) R_2(\theta_2) R_1(\theta_1) \\
+    &= \begin{bmatrix} C_2 C_3 & S_1 S_2 C_3 - C_1 S_3 & C_1 S_2 C_3 + S_1 S_3 \\ C_2 S_3 & S_1 S_2 S_3 + C_1 C_3 & C_1 S_2 S_3 - S_1 C_3 \\ -S_2 & S_1 C_2 & C_1 C_2 \end{bmatrix}
+\end{aligned}$$
+
+where $C_k = \cos\theta_k$ and $S_k = \sin\theta_k$.
+
+#### Euler Angles Transformation$(Z,Y',Z' )$
+unlike YPR, Euler angles($(\phi, \theta, \psi)$) specify the orientation of $M$ relative to $F$ via three consecutive rotations about the mobile frame's own current axes($Z, Y',Z''$ convention):
+
+Rotation about $m^3$($Z$-axis)by angle $\phi$ $\implies$ postmulitply $R_3(\phi)$
+
+Rotation about $m^2$(new $Y'$-axis)by angle $\theta$ $\implies$ postmulitply $R_3(\theta)$
+
+Rotation about $m^3$(new $Z''$-axis)by angle $\psi$ $\implies$ postmulitply $R_3(\psi)$
+
+Because all rotations occur about mobile axes, we postmultiply sequentially:
+
+$$
+\begin{aligned}
+    R_{Euler}(\phi, \theta, \psi) &= R_3(\phi)R_2(\theta)R_1(\psi)\\
+    &= \begin{bmatrix} C_\phi C_\theta C_\psi - S_\phi S_\psi & -C_\phi C_\theta S_\psi - S_\phi C_\psi & C_\phi S_\theta \\ S_\phi C_\theta C_\psi + C_\phi S_\psi & -S_\phi C_\theta S_\psi + C_\phi C_\psi & S_\phi S_\theta \\ -S_\theta C_\psi & S_\theta S_\psi & C_\theta \end{bmatrix}
+\end{aligned}
+$$
+Other conventions exist (e.g., $Z, X', Z''$). Industrial robots such as KUKA use $Z, Y', Z''$ Euler angles (denoted as A, B, C on the teach pendant, as illustrated on Slide 16).
+
+
+## Direct Kinematics & Homogeneous Coordinates
+### Direct Kinematics Problem Definition 
+Problem Statement: Given the vector of joint variables(joint angles and joint distances), determine the position and orientation of the end-effector(TCP/Tool Center Point) with respect to the base reference frame of manipulator
+
+World frame ($X_{WE}, Y_{WE}, Z_{WE}$), Robot Base frame ($X_{RB}, Y_{RB}, Z_{RB}$), Workpiece Base frame ($X_B, Y_B, Z_B$), Flange frame ($X_{Fl}, Y_{Fl}, Z_{Fl}$), and Tool frame ($X_{WZ}, Y_{WZ}, Z_{WZ}$ at TCP)
+
+### Homogeneous Coordinates & Transformation Matrix
+A $3\times 3$ rotation matrix $R$ can only describe rotations around a shared origin. To unify both rotations and translations into a single matrix multiplication, we introduce homogeneous coordinates
+
+*Homogeneous Coordinates:* For a 3D point $q = \begin{bmatrix}
+    q_1 & q_2 & q_3
+\end{bmatrix}^T \in \R^3$ and a nonzero scale factor $\sigma$, its homogeneous representation in frame $F$ is a 4D vector $[q]^F \in \R^4$:
+$$
+\begin{aligned}
+    [q]^F = \sigma \begin{bmatrix}
+    q_1 & q_2 & q_3 & 1
+    \end{bmatrix}^T
+\end{aligned}
+$$
+To recover the 3D Cartesian coordinates $q$ from $[q]^F$, multiply by 
+$$
+\begin{aligned}
+    H_\sigma = \frac{1}{\sigma}\begin{bmatrix}
+        1 & 0 & 0 & 0\\
+        0 & 1 & 0 & 0\\
+        0 & 0 & 1 & 0
+    \end{bmatrix}
+\end{aligned}
+$$
+so that $q = H_\sigma [q]^F$. In robotics, we always set $\sigma = 1$
+
+*Homogeneous Transformation Matrix* $T \in \R^{4 \times 4}$:
+$$
+\begin{aligned}
+T = \begin{bmatrix} R & p \\ \eta^T & \sigma \end{bmatrix} = \begin{bmatrix} R_{3 \times 3} & p_{3 \times 1} \\ \mathbf{0}_{1 \times 3} & 1 \end{bmatrix}
+\end{aligned}
+$$
+where $R \in \R^{3\times 3}$ is rotation matrix, $p \in \R^{3 \times 1}$ is the translation vector(origin of $M$ in $F$), $\eta^T = \begin{bmatrix}
+    0 & 0 & 0
+\end{bmatrix}$ is the perspective vector, and $\sigma = 1$ is the scaling factor
+
+*Coordinate Mapping*: Mapping point coordinates from frame $M$ to fixed frame $F$ becomes a single linear matrix product:
+$$
+\begin{aligned}
+[q]^F &= T [q]^M \\
+      &= \begin{bmatrix}
+        R & p \\ 
+        \mathbf{0}^T & 1 \end{bmatrix} 
+        \begin{bmatrix}
+        q^M \\ 1
+        \end{bmatrix} \\
+      &= \begin{bmatrix} R q^M + p \\ 1 \end{bmatrix}    
+\end{aligned}
+$$
+
+## Composite Homogeneous Transformations
+### Fundamental Homogeneous Matrices & Algorithm
+
+*Fundumental Homogeneous Matrix* about axis $k \in \begin{Bmatrix}
+    1, 2, 3
+\end{Bmatrix}$
+
+#### Example:
