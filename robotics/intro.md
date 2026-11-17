@@ -312,6 +312,149 @@ $$
 
 *Fundumental Homogeneous Matrix* about axis $k \in \begin{Bmatrix}
     1, 2, 3
-\end{Bmatrix}$
+\end{Bmatrix}$ by angle $\phi$:
+$$
+\begin{aligned}
+    Rot(\phi, k) = \begin{bmatrix}
+        R_k(\phi) & \mathbf{0}_{3\times1}\\
+        \mathbf{0}_{1\times3} & 1
+    \end{bmatrix}
+\end{aligned}
+$$
+*Fundamental Homogeneous Translation Matrix* by vector $p$ = $\begin{bmatrix}
+    p_1 & p_2 & p_3
+\end{bmatrix}^T$:
+
+$$
+\begin{aligned}
+    Tran(p) = \begin{bmatrix}
+        1 & 0 & 0 & p_1 \\
+        0 & 1 & 0 & p_2 \\
+        0 & 0 & 1 & p_3 \\
+        0 & 0 & 0 & 1
+    \end{bmatrix}
+\end{aligned}
+$$
+
+*Composite Algorithm*: Start with $T = I_{4 \times 4}$.
+Operation about/along a unit vector of fixed frame $F$ $\implies$ premultiply $T$.
+Operation about/along one of mobile frame $M$'s own unit vectors $\implies$ postmultiply $T$.
 
 #### Example:
+Assume two initially coincident frames $F$ and $M$.
+Case A: First translate $M$ along $f^2$ by $3$ units, and then rotate $M$ about $f^3$ by $\pi$ radians. Find $[m^1]^F$.
+<img src="./pics/slide23a.png" width="50%">
+
+Step 1: Both operations are with respect to fixed frame $F$ ($f^2$ and $f^3$), so we premultiply in chronological order:
+
+Since the frame $M$ rotates about $f^3$, so we have $Rot(\pi, 3) = \begin{bmatrix}
+    C & -S & 0 \\
+    S & C & 0 \\
+    0 & 0 & 1 
+\end{bmatrix}$($C = \cos\theta$, $S = \sin\theta$), $T_{rot}(\theta) = \begin{bmatrix}
+    C & -S & 0 & 0\\
+    S & C & 0 & 0\\
+    0 & 0 & 1 & 0\\
+    0 & 0 & 0 & 1
+\end{bmatrix}$
+$$
+\begin{aligned}
+    T_F^M &= T_{rot}(\pi, 3) \cdot Tran(\begin{bmatrix}
+        0 \\ 3 \\ 0
+    \end{bmatrix})\\
+          &=\begin{bmatrix}
+            -1 & 0 & 0 & 0 \\
+            0 & -1 & 0 & 0 \\
+            0 & 0 & 1 & 0 \\
+            0 & 0 & 0 & 1
+          \end{bmatrix}
+          \begin{bmatrix}
+            1 & 0 & 0 & 0 \\
+            0 & 1 & 0 & 3 \\
+            0 & 0 & 1 & 0 \\
+            0 & 0 & 0 & 1
+          \end{bmatrix}\\
+          &= \begin{bmatrix} 
+             -1 & 0 & 0 & 0 \\
+              0 & -1 & 0 & -3 \\
+              0 & 0 & 1 & 0 \\ 
+              0 & 0 & 0 & 1 
+              \end{bmatrix}
+\end{aligned}
+$$
+
+Step 2: Since $[m^1]^M = \begin{bmatrix}
+    1 & 0 & 0 & 1
+\end{bmatrix}^T$, we get:
+$$
+\begin{aligned}
+    [m^1]^F &= T^M_F [m^1]^M\\
+            &= \begin{bmatrix} 
+                -1 & 0 & 0 & 0 \\
+                0 & -1 & 0 & -3 \\
+                0 & 0 & 1 & 0 \\ 
+                0 & 0 & 0 & 1 
+                \end{bmatrix}
+                \begin{bmatrix}
+                    1 \\ 0 \\ 0 \\ 1
+                \end{bmatrix}\\
+                &= \begin{bmatrix}
+                    -1 \\ -3 \\ 0 \\1
+                \end{bmatrix}
+\end{aligned}
+$$
+
+Case B (Reversed Order): First rotate $M$ about $f^3$ by $\pi$ radians, and then translate $M$ along $f^2$ by $3$ units.
+
+<img src="./pics/slide23b.png" width="50%">
+
+Step 1:Premultiply in the new order:
+$$
+\begin{aligned}
+    T^M_F &= Tran(\begin{bmatrix}
+        0 \\ 3 \\ 0 \\
+    \end{bmatrix}) \cdot Rot(\pi, 3)\\ 
+          &= 
+          \begin{bmatrix} 
+                1 & 0 & 0 & 0 \\
+                0 & 1 & 0 & 3 \\
+                0 & 0 & 1 & 0 \\ 
+                0 & 0 & 0 & 1 
+                \end{bmatrix}
+                \begin{bmatrix} 
+                -1 & 0 & 0 & 0 \\
+                0 & -1 & 0 & -3 \\
+                0 & 0 & 1 & 0 \\ 
+                0 & 0 & 0 & 1 
+                \end{bmatrix} 
+                &= \begin{bmatrix} 
+                -1 & 0 & 0 & 0 \\
+                0 & -1 & 0 & 3 \\
+                0 & 0 & 1 & 0 \\ 
+                0 & 0 & 0 & 1 
+                \end{bmatrix}
+\end{aligned}
+$$
+Step 2: $[m^1]^F = T_F^M[m^1]^M = \begin{bmatrix}
+    -1 & 3 & 0 & 1
+\end{bmatrix}^T$
+
+## Inverse Homogeneous Transformation & Screw Transformation
+### Inverse Homogeneous Transformation
+For a riR & P \\
+\mathb{0}^Tgid-body homogeneous transformation $T = \begin{bmatrix} R & p \\ \mathbf{0}^T & 1 \end{bmatrix}$ ($with \eta = 0, \sigma = 1$), its inverse $T^{-1}$ is given in closed form by:
+$$
+\begin{aligned}
+    T^{-1} = \begin{bmatrix}
+        R^T & -R^Tp \\
+        \mathbf{0}_{1\times3} & 1
+    \end{bmatrix}
+\end{aligned}
+$$
+
+Note that $T^{-1} \neq T^T$ because of the translation column; only the $3 \times 3$ rotation block is transposed, while the new translation becomes $-R^T p$.
+
+#### Example
+In Figure on Slide 25, frame $M$ has its origin at $(0, 3, 2)$ in frame $F$, with $m^1$ pointing down ($-f^3$), $m^2$ pointing front-left ($+f^1$), and $m^3$ pointing left ($-f^2$).
+
+<img src="./pics/slide25.png" width="80%">
