@@ -458,3 +458,12 @@ Note that $T^{-1} \neq T^T$ because of the translation column; only the $3 \time
 In Figure on Slide 25, frame $M$ has its origin at $(0, 3, 2)$ in frame $F$, with $m^1$ pointing down ($-f^3$), $m^2$ pointing front-left ($+f^1$), and $m^3$ pointing left ($-f^2$).
 
 <img src="./pics/slide25.png" width="80%">
+
+Compute: $T_M^F = (T_F^M)^{-1}:$(maps $F \rightarrow M$)
+$$
+R^T = \begin{bmatrix}
+    0 & 0 & -1\\
+    1 & 0 & 0\\
+    0 & -1 & 0
+\end{bmatrix}, -R^Tp =
+$$
